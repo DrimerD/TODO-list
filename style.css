@@ -1,0 +1,14 @@
+.tdContainer {
+	max-width: 900px;
+    margin: auto;
+    font: 16px Times New Romans;
+}
+.tdContainer .tdPost .tdList li{
+	width: 90%;
+    list-style: none;
+    display: inline-flex;
+    justify-content: space-between;
+}
+.tdContainer .tdPost .tdList .tdItem img{
+   
+}

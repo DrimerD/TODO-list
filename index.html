@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Todo List</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="tdContainer">
+	<h1>TODO list</h1>
+		<div class="tdInput">
+			<input type="text">
+		</div>
+		<div class="tdPost">
+			<ul class="tdList">
+				
+			</ul>
+		</div>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script>
+        
+        var tdList = $('.tdPost .tdList');
+        
+        function show(){
+            var length = localStorage.length;
+            if(length > 0){
+                for(var i=0; i<length; i++){
+                    var key = localStorage.key(i);
+                    $('<li></li>').addClass('tdItem')
+                        .attr('dataItem-id', key)
+                        .text(localStorage.getItem(key))
+                        .append('<img src="delete.png" alt="видалити">')
+                        .appendTo(tdList);
+                }
+            }
+        }
+        show();
+        
+		$('.tdContainer .tdInput input').on('keydown', function(e){
+			if (e.keyCode == 13) {
+				var str = e.target.value;
+				e.target.value = "";
+                
+                if(str.length > 0){
+                    var id = 0;
+                    
+                    tdList.children().each(function(index, el){
+                        var realId = $(el).attr('dataItem-id');
+                        if(realId > id)
+                            id = realId;
+                    })
+                    id ++;
+                    
+				    localStorage.setItem(id, str);
+                    
+                    $('<li></li>').addClass('tdItem')
+                        .attr('dataItem-id', id)
+                        .text(str)
+                        .append('<img src="delete.png" alt="видалити">')
+                        .appendTo(tdList);
+                }
+                
+			}else{
+				return;
+			}
+		});
+
+        $(document).on('click', '.tdList img', function(e){
+            var select = $(e.target.parentElement);
+            localStorage.removeItem(select.attr('dataItem-id'));
+            select.remove();
+        });
+	</script>
+</body>
+</html>
