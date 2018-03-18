@@ -9,13 +9,13 @@
 </head>
 <body>
 	<div class="tdContainer">
-	<h1>TODO list</h1>
+	<h1>TO DO LIST</h1>
 		<div class="tdInput">
 			<input type="text">
 		</div>
 		<div class="tdPost">
 			<ul class="tdList">
-				
+
 			</ul>
 		</div>
 	</div>
@@ -32,7 +32,7 @@
                     $('<li></li>').addClass('tdItem')
                         .attr('dataItem-id', key)
                         .text(localStorage.getItem(key))
-                        .append('<img src="delete.png" alt="видалити">')
+                        .append('<img src="images/delete.png" alt="видалити">')
                         .appendTo(tdList);
                 }
             }
@@ -59,7 +59,7 @@
                     $('<li></li>').addClass('tdItem')
                         .attr('dataItem-id', id)
                         .text(str)
-                        .append('<img src="delete.png" alt="видалити">')
+                        .append('<img src="images/delete.png" alt="видалити">')
                         .appendTo(tdList);
                 }
                 
