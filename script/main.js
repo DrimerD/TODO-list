@@ -23,7 +23,7 @@
                     $('<li></li>').addClass('tdItem')
                         .attr('dataItem-id', key)
                         .text(localStorage.getItem(key))
-                        .append('<img src="../images/clear.png" alt="видалити">')
+                        .append('<img src="images/clear.png" alt="видалити">')
                         .appendTo(tdList);
                 }
             }
@@ -72,7 +72,7 @@
                     $('<li></li>').addClass('tdItem')
                         .attr('dataItem-id', id)
                         .text(str)
-                        .append('<img src="../images/clear.png" alt="видалити">')
+                        .append('<img src="images/clear.png" alt="видалити">')
                         .appendTo(tdList);
                 }
 
