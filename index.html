@@ -4,42 +4,87 @@
 	<meta charset="utf-8">
   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Todo List</title>
+	<title>TO DO LIST</title>
+	<link rel="stylesheet" href="animate.css">
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div class="tdContainer">
-	<h1>TO DO LIST</h1>
-		<div class="tdInput">
-			<input type="text">
-		</div>
-		<div class="tdPost">
-			<ul class="tdList">
-
-			</ul>
-		</div>
+    <h1>TO DO LIST</h1>
+    <div class="pos">
+        <div class="input-author position animated">
+            <input type="text" placeholder="Enter Authors">
+        </div>
+	    <section class="container">
+            <div class="header">
+                <div class="preference">
+                    <img class="prefer" src="images/preference.png" alt="Налаштування">
+                </div>
+                <div class="head">
+                    <h3 class="authorName">Author list</h3>
+                </div>
+            </div>
+            <div class="tdContainer">
+               <div class="tdInput">
+                   <input type="text" placeholder="Enter a note">
+               </div>
+               <div>
+                   <ul class="tdList">
+                   </ul>
+               </div>
+            </div>
+            <div class="border-bott"></div>
+	</section>
 	</div>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-	<script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script>
+     $(document).ready(function(){
+        function heightDetect() {
+            $("main").css("height", $(window).height());
+        };
+        heightDetect();
+        $(window).resize(function() {
+            heightDetect();
+        });
         
-        var tdList = $('.tdPost .tdList');
-        
+         var tdList = $('.tdContainer .tdList');
+
         function show(){
             var length = localStorage.length;
             if(length > 0){
                 for(var i=0; i<length; i++){
                     var key = localStorage.key(i);
+                    $('.authorName').text(localStorage.getItem('-1'));
+                    if (key > -1)
                     $('<li></li>').addClass('tdItem')
                         .attr('dataItem-id', key)
                         .text(localStorage.getItem(key))
-                        .append('<img src="images/delete.png" alt="видалити">')
+                        .append('<img src="images/cleat.png" alt="видалити">')
                         .appendTo(tdList);
                 }
             }
         }
         show();
+
+        //input Author name
         
-		$('.tdContainer .tdInput input').on('keydown', function(e){
+        $(this).keydown(function(e){
+                if(e.keyCode == 27){
+                    $('.input-author').addClass('bounceOutDown');
+                    $('.input-author').removeClass('bounceInUp');
+                }else if(e.keyCode == 13){
+                    var name = e.target.value;
+                    e.target.value = "";
+
+                    if (name.length >0){
+                        localStorage.setItem('-1', name);
+                        $('.authorName').text(localStorage.getItem('-1'));
+                    }
+                    $('.input-author').addClass('bounceOutDown');
+                    $('.input-author').removeClass('bounceInUp');
+                }
+            });
+        //input notes
+        $('.tdContainer .tdInput input').on('keydown', function(e){
 			if (e.keyCode == 13) {
 				var str = e.target.value;
 				e.target.value = "";
@@ -49,7 +94,7 @@
                     
                     tdList.children().each(function(index, el){
                         var realId = $(el).attr('dataItem-id');
-                        if(realId > id)
+                        if(realId > id || realId != '-1')
                             id = realId;
                     })
                     id ++;
@@ -59,7 +104,7 @@
                     $('<li></li>').addClass('tdItem')
                         .attr('dataItem-id', id)
                         .text(str)
-                        .append('<img src="images/delete.png" alt="видалити">')
+                        .append('<img src="images/cleat.png" alt="видалити">')
                         .appendTo(tdList);
                 }
                 
@@ -73,6 +118,12 @@
             localStorage.removeItem(select.attr('dataItem-id'));
             select.remove();
         });
-	</script>
+
+        $('.prefer').on('click', function () {
+            $('.input-author').removeClass('position bounceOutDown');
+            $('.input-author').addClass('bounceInUp');
+        });
+    });
+    </script>
 </body>
 </html>
